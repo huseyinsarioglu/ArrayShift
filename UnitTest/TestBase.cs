@@ -12,7 +12,7 @@
             {
                 for (int column = 0; column < columnCount; column++)
                 {
-                    Assert.AreEqual(result[row, column], expected[row, column], $"row: {row}, column: {column}");
+                    Assert.That(result[row, column], Is.EqualTo(expected[row, column]), $"row: {row}, column: {column}");
                 }
             }
         }

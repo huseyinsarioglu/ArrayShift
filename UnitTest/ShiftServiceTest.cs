@@ -18,7 +18,7 @@ namespace UnitTest
         [TearDown]
         public void TearDown()
         {
-            _mockCalculatorService.Verify(x => x.Calculate(It.IsAny<char[,]>(), It.IsAny<char[,]>(), It.IsAny<int>()), Times.Never);
+            _mockCalculatorService.Verify(x => x.Calculate(It.IsAny<char[,]>(), It.IsAny<int>()), Times.Never);
             _mockCalculatorService.VerifyNoOtherCalls();
         }
 
@@ -33,7 +33,7 @@ namespace UnitTest
         [Test]
         public void NullArray_Should_Return_EmptyArray()
         {
-            var result = _shiftService.Shift<int>(null, 1);
+            var result = _shiftService.Shift<char>(null, 1);
             Assert.That(result, Is.Empty);
         }
 

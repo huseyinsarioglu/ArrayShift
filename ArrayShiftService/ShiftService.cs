@@ -9,28 +9,25 @@
             _calculatorService = calculatorService;
         }
 
-        public T[,] Shift<T>(T[,] arr, int shift)
+        public T[,] Shift<T>(T[,]? arr, int shift)
         {
-            (int row, int column) counts = (arr?.GetLength(0) ?? 0, arr?.GetLength(1) ?? 0);
-
-            var result = new T[counts.row, counts.column];
-
             if (arr == null || arr.Length == 0)
-                return result;
+            {
+                return new T[0, 0];
+            }
 
-            // eliminate circular shift
-            shift %= arr.Length;
+            // eliminate circular shift before sending it to the calculator
+            return GetResult(arr, shift % arr.Length);
+        }
 
+        private T[,] GetResult<T>(T[,] arr, int shift)
+        {
             if (shift == 0)
             {
-                Array.Copy(arr, result, arr.Length);
-            }
-            else
-            {
-                _calculatorService.Calculate(arr, result, shift);
+                return (T[,])arr.Clone();
             }
 
-            return result;
+            return _calculatorService.Calculate(arr, shift);
         }
     }
 }

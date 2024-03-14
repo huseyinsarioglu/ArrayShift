@@ -7,6 +7,7 @@ namespace UnitTest
     {
         private ShiftService _shiftService;
         private Mock<IShiftCalculatorService> _mockCalculatorService;
+        private char[,] _actualResult;
 
         [SetUp]
         public void Setup()
@@ -14,10 +15,10 @@ namespace UnitTest
             var calculatorService = new ShiftCalculatorService();
             _mockCalculatorService = new Mock<IShiftCalculatorService>();
             _mockCalculatorService
-                .Setup(x => x.Calculate(It.IsAny<char[,]>(), It.IsAny<char[,]>(), It.IsAny<int>()))
-                .Callback((char[,] source, char[,] result, int shift) =>
+                .Setup(x => x.Calculate(It.IsAny<char[,]>(), It.IsAny<int>()))
+                .Callback((char[,] source, int shift) =>
                 {
-                    calculatorService.Calculate(source, result, shift);
+                    _actualResult = calculatorService.Calculate(source, shift);
                 });
 
             _shiftService = new ShiftService(_mockCalculatorService.Object);
@@ -26,7 +27,7 @@ namespace UnitTest
         [TearDown]
         public void TearDown()
         {
-            _mockCalculatorService.Verify(x => x.Calculate(It.IsAny<char[,]>(), It.IsAny<char[,]>(), It.IsAny<int>()), Times.Once);
+            _mockCalculatorService.Verify(x => x.Calculate(It.IsAny<char[,]>(), It.IsAny<int>()), Times.Once);
             _mockCalculatorService.VerifyNoOtherCalls();
         }
 
@@ -34,6 +35,7 @@ namespace UnitTest
         [TestCase(57)]
         public void Shift_One_Test(int shift)
         {
+            // Arrange
             var arr = new char[,]
             {
                 { '1', '0', '1', '0', '1', '0', '0', '0' },
@@ -44,8 +46,6 @@ namespace UnitTest
                 { '1', '1', '1', '0', '1', '0', '1', '0' },
                 { '1', '1', '0', '0', '1', '0', '0', '0' },
             };
-
-            var result = _shiftService.Shift(arr, shift);
 
             var expected = new char[,]
             {
@@ -58,13 +58,18 @@ namespace UnitTest
                 { '0', '1', '1', '0', '0', '1', '0', '0' },
             };
 
-            AssertResult(result, expected);
+            // Act
+            _shiftService.Shift(arr, shift);
+
+            // Assert
+            AssertResult(expected, _actualResult);
         }
 
         [TestCase(2)]
         [TestCase(58)]
         public void Shift_Two_Test(int shift)
         {
+            // Arrange
             var arr = new char[,]
             {
                 { '0', '1', '2', '3', '4', '5', '6', '7' },
@@ -75,8 +80,6 @@ namespace UnitTest
                 { '0', '1', '2', '3', '4', '5', '6', '7' },
                 { '8', '9', '0', '1', '2', '3', '4', '5' },
             };
-
-            var result = _shiftService.Shift(arr, shift);
 
             var expected = new char[,]
             {
@@ -89,7 +92,11 @@ namespace UnitTest
                 { '6', '7', '8', '9', '0', '1', '2', '3' },
             };
 
-            AssertResult(result, expected);
+            // Act
+            _shiftService.Shift(arr, shift);
+
+            // Assert
+            AssertResult(expected, _actualResult);
         }
 
         [TestCase(7)]
@@ -97,6 +104,7 @@ namespace UnitTest
         [TestCase(119)]
         public void Shift_Seven_Test(int shift)
         {
+            // Arrange
             var arr = new char[,]
             {
                 { '0', '1', '2', '3', '4', '5', '6', '7' },
@@ -107,8 +115,6 @@ namespace UnitTest
                 { '0', '1', '2', '3', '4', '5', '6', '7' },
                 { '8', '9', '0', '1', '2', '3', '4', '5' },
             };
-
-            var result = _shiftService.Shift(arr, shift);
 
             var expected = new char[,]
             {
@@ -121,7 +127,11 @@ namespace UnitTest
                 { '1', '2', '3', '4', '5', '6', '7', '8',  },
             };
 
-            AssertResult(result, expected);
+            // Act
+            _shiftService.Shift(arr, shift);
+
+            // Assert
+            AssertResult(expected, _actualResult);
         }
 
         [TestCase(1)]
@@ -129,6 +139,7 @@ namespace UnitTest
         [TestCase(19)]
         public void Shift_One_Test_WithThreeByThree(int shift)
         {
+            // Arrange
             var arr = new char[,]
             {
                 { '1', '2', '3' },
@@ -143,8 +154,11 @@ namespace UnitTest
                 { '6', '7', '8' },
             };
 
-            var actual = _shiftService.Shift(arr, shift);
-            AssertResult(expected, actual);
+            // Act
+            _shiftService.Shift(arr, shift);
+
+            // Assert
+            AssertResult(expected, _actualResult);
         }
 
         [TestCase(4)]
@@ -154,6 +168,7 @@ namespace UnitTest
         [TestCase(-14)]
         public void Shift_Four_Test_WithThreeByThree(int shift)
         {
+            // Arrange
             var arr = new char[,]
             {
                 { '1', '2', '3' },
@@ -168,8 +183,11 @@ namespace UnitTest
                 { '3', '4', '5' },
             };
 
-            var actual = _shiftService.Shift(arr, shift);
-            AssertResult(expected, actual);
+            // Act
+            _shiftService.Shift(arr, shift);
+
+            // Assert
+            AssertResult(expected, _actualResult);
         }
 
         [TestCase(1)]
@@ -177,6 +195,7 @@ namespace UnitTest
         [TestCase(19)]
         public void Shift_One_Test_WithOneByThree(int shift)
         {
+            // Arrange
             var arr = new char[,]
             {
                 { '1', '2', '3' }
@@ -187,8 +206,11 @@ namespace UnitTest
                 { '3', '1', '2' }
             };
 
-            var actual = _shiftService.Shift(arr, shift);
-            AssertResult(expected, actual);
+            // Act
+            _shiftService.Shift(arr, shift);
+
+            // Assert
+            AssertResult(expected, _actualResult);
         }
 
         [TestCase(-1)]
@@ -196,6 +218,7 @@ namespace UnitTest
         [TestCase(-19)]
         public void Shift_MinusOne_Test_WithOneByThree(int shift)
         {
+            // Arrange
             var arr = new char[,]
             {
                 { '1', '2', '3' }
@@ -206,8 +229,11 @@ namespace UnitTest
                 { '2', '3', '1' }
             };
 
-            var actual = _shiftService.Shift(arr, shift);
-            AssertResult(expected, actual);
+            // Act
+            _shiftService.Shift(arr, shift);
+
+            // Assert
+            AssertResult(expected, _actualResult);
         }
 
         [TestCase(-1)]
@@ -218,6 +244,7 @@ namespace UnitTest
         [TestCase(26)]
         public void Shift_MinusOne_Test_WithThreeByThree(int shift)
         {
+            // Arrange
             var arr = new char[,]
             {
                 { '1', '2', '3' },
@@ -232,8 +259,11 @@ namespace UnitTest
                 { '8', '9', '1' },
             };
 
-            var actual = _shiftService.Shift(arr, shift);
-            AssertResult(expected, actual);
+            // Act
+            _shiftService.Shift(arr, shift);
+
+            // Assert
+            AssertResult(expected, _actualResult);
         }
     }
 }
