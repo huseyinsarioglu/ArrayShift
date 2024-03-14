@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArrayShiftService", "ArrayShiftService\ArrayShiftService.csproj", "{B526441A-6A2B-46EC-85BA-92F4620E4AC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{A4E771DD-841B-48ED-AB86-459BACE9F433}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B526441A-6A2B-46EC-85BA-92F4620E4AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B526441A-6A2B-46EC-85BA-92F4620E4AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B526441A-6A2B-46EC-85BA-92F4620E4AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B526441A-6A2B-46EC-85BA-92F4620E4AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4E771DD-841B-48ED-AB86-459BACE9F433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4E771DD-841B-48ED-AB86-459BACE9F433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4E771DD-841B-48ED-AB86-459BACE9F433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4E771DD-841B-48ED-AB86-459BACE9F433}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B2A28A73-9A56-4DFE-BEC1-EA89D50497D7}
+	EndGlobalSection
+EndGlobal
